@@ -26,6 +26,12 @@ namespace AppInsights.Telemetry
             return this;
         }
 
+        public TelemetryProcessor SetParentOperationId(string parentOperationId)
+        {
+            _telemetryClient.Context.Operation.ParentId = parentOperationId;
+            return this;
+        }
+
         public void TrackAvailability(AvailabilityTelemetry telemetry)
         {
             _telemetryClient.TrackAvailability(telemetry);

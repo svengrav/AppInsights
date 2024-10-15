@@ -23,6 +23,11 @@ namespace AppInsights.Commands
         public Hashtable Properties { get; set; } = new Hashtable();
 
         [Parameter(
+            HelpMessage = "The Parent Operation Id. Default is none."
+        )]
+        public string ParentOperationId { get; set; }
+
+        [Parameter(
             HelpMessage = "The role name. Default is the machine name."
         )]
         public string RoleName { get; set; } = Environment.MachineName;
@@ -99,7 +104,8 @@ namespace AppInsights.Commands
         {
             TelemetryProcessor = new TelemetryProcessor(_instrumentationKey, _developerMode)
                 .SetRoleInstance(RoleInstance)
-                .SetRoleName(RoleName);
+                .SetRoleName(RoleName)
+                .SetParentOperationId(ParentOperationId);
         }
 
         private void AddCommandContext()
