@@ -22,12 +22,10 @@ namespace AppInsights.Builders
 
         internal ExceptionTelemetry Build()
         {
-            var exceptionTelemetry = (ExceptionTelemetry) _telemetry.DeepClone();
+            if (string.IsNullOrEmpty(_telemetry.Message))
+                _telemetry.Message = _telemetry.Exception.Message;
 
-            if (string.IsNullOrEmpty(exceptionTelemetry.Message))
-                exceptionTelemetry.Message = exceptionTelemetry.Exception.Message;
-
-            return exceptionTelemetry;
+            return _telemetry;
         }
 
         internal ExceptionTelemetryBuilder AddPowerShellContext(PowerShellHostContext hostContext, PowerShellCommandContext commandContext)
